@@ -38,8 +38,8 @@ public class GameWindow extends JFrame
 		@SuppressWarnings({"unchecked"})
 		public GameWindow() {
 	 
-			setTitle ("Don't Get Slimmed 0.1.1");
-			setSize (1000, 600);
+			setTitle ("Don't Get Slimmed 0.1.2");
+			setSize (1200, 800);
 	
 			// create user interface objects
 	
@@ -98,7 +98,7 @@ public class GameWindow extends JFrame
 			// create the gamePanel for game entities
 	
 			gamePanel = new GamePanel();
-			gamePanel.setPreferredSize(new Dimension(900, 400));
+			gamePanel.setPreferredSize(new Dimension(1000, 600));
 			gamePanel.createGameEntities();
 	
 	

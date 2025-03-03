@@ -126,6 +126,7 @@ public class SmallSlime extends Slime{
 
             health = health + player.damage;
             if(health <= 0){
+                ((GamePanel) panel).killedSlime();
                 erase();
                 setLocation();
                 health =2;
@@ -140,7 +141,7 @@ public class SmallSlime extends Slime{
     @Override
     public void setLocation() {
         x = random.nextInt( 900 - width );
-        y = 260;
+        y = 460;
     }
 
     public Rectangle2D.Double getBoundingRectangle() {

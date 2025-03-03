@@ -40,7 +40,7 @@ public class FallingSlime extends Slime {
     @Override
     public void setLocation() {
         x = random.nextInt( 900 - width );
-        y = 260;
+        y = 460;
     }
 
     public void draw () {
@@ -105,7 +105,8 @@ public class FallingSlime extends Slime {
     public void hurtSlime(){
         if(collideWithAttack()){
             health--;
-            if(health == 0){
+            if(health <= 0){
+                ((GamePanel) panel).killedSlime();
                 player.points= player.points + points;
                 GameWindow.updatePointChecker(player.points);
                 erase();

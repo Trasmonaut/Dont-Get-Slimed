@@ -9,14 +9,17 @@ public class GamePanel extends JPanel implements Runnable {
       Player player;
       Floor floor;
 
+      private SoundManager soundManager;
+
       private Thread gameThread;
       private boolean isStarted;
       private boolean isRunning;
       private Slime[] AllSlimes;
 
       public GamePanel () {
-      player = null;
+      player = null; 
       floor = null;
+      soundManager = SoundManager.getInstance();
    }
 
 
@@ -31,7 +34,7 @@ public class GamePanel extends JPanel implements Runnable {
       AllSlimes[3] = new FallingSlime(this,player);
       AllSlimes[4] = new LargeSlime(this, player);
 
-      floor = new Floor (this, 300);
+      floor = new Floor (this, 500);
    }
 
    public void drawGameEntities() {
@@ -54,10 +57,15 @@ public class GamePanel extends JPanel implements Runnable {
    }
 
    public void swung(){
+      soundManager.playRandomClip("slash", 4 , false);
       for (Slime s : AllSlimes){
          s.hurtSlime();
          
       }
+   }
+
+   public void killedSlime(){
+      soundManager.playRandomClip("slimekilled", 2, false);
    }
 
    public void sheild(){
@@ -73,9 +81,20 @@ public class GamePanel extends JPanel implements Runnable {
       while (isRunning){
         
             updateGameEntities();
+            if (player.health <= 10) {
+               soundManager.setVolume("lowHealth", 1.0f);
+               soundManager.playClip("lowHealth", true);
+
+      }
             if(player.health <= 0){
+               
                isRunning=false;
                System.out.println("Player Died. Game over. Final Points :" + player.points);
+
+               soundManager.stopClip("lowHealth");
+               soundManager.stopClip("background");
+
+               soundManager.playClip("playerdeath", false);
             }
             Thread.sleep(100);
          }
@@ -101,6 +120,9 @@ public class GamePanel extends JPanel implements Runnable {
 
       isStarted = true;
       isRunning = true;
+
+      soundManager.setVolume("background", 0.85f);
+      soundManager.playClip("background", true);
       gameThread = new Thread(this);
       gameThread.start();
       createGameEntities();

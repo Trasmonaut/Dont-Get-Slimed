@@ -12,7 +12,7 @@ public class Player {
    private int y;
    private int width;
    private int height;
-   public int health = 20;
+   public int health = 50;
    public int damage = -1;
    public int points =0;
    public boolean shield = false;
@@ -39,7 +39,7 @@ public class Player {
 
       backgroundColour = panel.getBackground ();
       x = 270;
-      y = 240;
+      y = 440;
 
       dx = 10;	// make bigger (smaller) to increase (decrease) speed
 

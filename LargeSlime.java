@@ -116,16 +116,17 @@ public class LargeSlime extends Slime{
         if(collideWithAttack()){
             erase();
             if(player.x < x){
-                x = x + 20;
+                x = x + 10;
             }
             else if(player.x > x){
-                x = x - 20;
+                x = x - 10;
             
             }
             draw();
 
             health = health + player.damage;
             if(health <= 0){
+                ((GamePanel) panel).killedSlime();
                 erase();
                 setLocation();
                 health =2;
@@ -140,7 +141,7 @@ public class LargeSlime extends Slime{
     @Override
     public void setLocation() {
         x = random.nextInt( 900 - width );
-        y = 220;
+        y = 420;
     }
 
     public Rectangle2D.Double getBoundingRectangle() {

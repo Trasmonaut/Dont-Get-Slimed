@@ -80,19 +80,22 @@ public class FallingSlime extends Slime {
               y = y - speed;
               draw();
         }else{
-            
+            ((GamePanel) panel).windup();
               isFalling = true;
               boolean collision = collidesWithplayer();
               y = y + fallSpeed;
               draw();
               if( collision ){
+                    ((GamePanel) panel).hurtPlayer();
+                    ((GamePanel) panel).fallingSlimeDead();
                     player.hurtPlayer(damage);
                     isFalling = false;
                     y =260;
                     erase();
                     System.out.println("Player hit!");
                     setLocation();
-              }else if( y >= 260){
+              }else if( y >= 460){
+                 ((GamePanel) panel).fallingSlimeDead();
                   isFalling=false;
                   y=260;
                   setLocation();  

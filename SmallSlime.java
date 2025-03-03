@@ -87,6 +87,7 @@ public class SmallSlime extends Slime{
             collideWithSheild();
 
         }else if(collision){  
+            ((GamePanel) panel).hurtPlayer();
             player.hurtPlayer(damage);
             if(player.x < x){
                 x = x + 20;

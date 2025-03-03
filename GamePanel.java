@@ -66,8 +66,24 @@ public class GamePanel extends JPanel implements Runnable {
 
    public void killedSlime(){
       soundManager.playRandomClip("slimekilled", 2, false);
+      soundManager.playClip("point", false);
    }
 
+   public void hurtPlayer(){
+      soundManager.playClip("playerhurt", false);
+
+   }
+   public void slimeShield(){
+      soundManager.playRandomClip("slimeblock", 3, false);
+   }
+
+   public void windup(){
+      soundManager.playClip("windup", false);
+   }
+
+   public void fallingSlimeDead(){
+      soundManager.playRandomClip("fallingslimeboom",2, false);
+   }
    public void sheild(){
       if (player.shield)
          player.shield=false;
@@ -121,7 +137,7 @@ public class GamePanel extends JPanel implements Runnable {
       isStarted = true;
       isRunning = true;
 
-      soundManager.setVolume("background", 0.85f);
+      //soundManager.setVolume("background", 0.85f);
       soundManager.playClip("background", true);
       gameThread = new Thread(this);
       gameThread.start();

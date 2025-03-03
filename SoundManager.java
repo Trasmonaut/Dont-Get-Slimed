@@ -41,6 +41,29 @@ public class SoundManager {				// a Singleton class
 		clip = loadClip("sounds/slimekilled1.wav");	// played when an alien is regenerated at the top of the JPanel
 		clips.put("slimekilled1", clip);
 // */
+		clip = loadClip("sounds/playerhurt.wav");
+		clips.put("playerhurt", clip);
+
+		clip = loadClip("sounds/point.wav");
+		clips.put("point", clip);
+
+		clip = loadClip("sounds/fallingslimeboom1.wav");
+		clips.put("fallingslimeboom1", clip);
+
+		clip = loadClip("sounds/fallingslimeboom2.wav");
+		clips.put("fallingslimeboom2", clip);
+
+		clip = loadClip("sounds/slimeblock1.wav");
+		clips.put("slimeblock1", clip);
+
+		clip = loadClip("sounds/slimeblock2.wav");
+		clips.put("slimeblock2", clip);
+
+		clip = loadClip("sounds/slimeblock3.wav");
+		clips.put("slimeblock3", clip);
+
+		clip = loadClip("sounds/windup.wav");
+		clips.put("windup", clip);
 	}
 
 

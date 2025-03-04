@@ -1,3 +1,6 @@
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
 /**
@@ -16,10 +19,18 @@ public class GamePanel extends JPanel implements Runnable {
       private boolean isRunning;
       private Slime[] AllSlimes;
 
+      private BufferedImage image;
+      private Image foregroundgrass;
+      private Image background;
+
       public GamePanel () {
       player = null; 
       floor = null;
+
+      background = ImageManager.loadImage("images/background.png");
+      foregroundgrass = ImageManager.loadImage("images/grass.png");
       soundManager = SoundManager.getInstance();
+      image = new BufferedImage(600, 400, BufferedImage.TYPE_INT_RGB);
    }
 
 
@@ -34,13 +45,12 @@ public class GamePanel extends JPanel implements Runnable {
       AllSlimes[3] = new FallingSlime(this,player);
       AllSlimes[4] = new LargeSlime(this, player);
 
-      floor = new Floor (this, 500);
+      floor = new Floor (this, 300);
    }
 
    public void drawGameEntities() {
        if (player != null) {
        	  player.draw();
-           floor.draw();
        }
    }
 
@@ -112,7 +122,11 @@ public class GamePanel extends JPanel implements Runnable {
 
                soundManager.playClip("playerdeath", false);
             }
+
+            gameRender();
             Thread.sleep(100);
+
+            
          }
       }
       catch (Exception e) {
@@ -125,6 +139,23 @@ public class GamePanel extends JPanel implements Runnable {
       for(Slime s : AllSlimes){
          s.move();
       }
+   }
+
+   public void gameRender(){
+      
+      Graphics2D imageContext = (Graphics2D) image.getGraphics();
+      
+      imageContext.drawImage(background, 0, 0, null);
+      imageContext.drawImage(foregroundgrass, 0, 285,null);
+      if (floor != null){
+         floor.draw(imageContext);
+      }
+
+      Graphics2D g2 = (Graphics2D) getGraphics();	// get the graphics context for the panel
+		g2.drawImage(image, 0, 0, 600, 400, null);
+
+		imageContext.dispose();
+		g2.dispose();
    }
 
    public void startGame(){
@@ -142,10 +173,10 @@ public class GamePanel extends JPanel implements Runnable {
       gameThread = new Thread(this);
       gameThread.start();
       createGameEntities();
-      drawGameEntities();
+      //drawGameEntities();
 
 		System.out.println("Number of threads: " + Thread.activeCount());
-
+      
    }
 
 }

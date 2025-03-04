@@ -28,14 +28,14 @@ public class SmallSlime extends Slime{
         dimension = panel.getSize();
         backgroundColour = panel.getBackground ();
 
-        width = 40;
-        height = 40;
+        width = 48;
+        height = 48;
 
         this.player = player;
 
         random = new Random();
 
-        dx = 5;			// no movement along x-axis
+        dx = 2;			// no movement along x-axis
 
         setLocation();
     }
@@ -142,7 +142,7 @@ public class SmallSlime extends Slime{
     @Override
     public void setLocation() {
         x = random.nextInt( 900 - width );
-        y = 460;
+        y = 252;
     }
 
     public Rectangle2D.Double getBoundingRectangle() {

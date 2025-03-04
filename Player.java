@@ -19,8 +19,8 @@ public class Player {
 
    private int dx;
   
-   private int hitboxHeight = 60;
-   private int hitboxWidth = 30;
+   private int hitboxHeight = 64;
+   private int hitboxWidth = 32;
    private int hitboxX;
 
    private boolean facing;
@@ -39,12 +39,12 @@ public class Player {
 
       backgroundColour = panel.getBackground ();
       x = 270;
-      y = 440;
+      y = 236;
 
-      dx = 10;	// make bigger (smaller) to increase (decrease) speed
+      dx = 5;	// make bigger (smaller) to increase (decrease) speed
 
-      width = 50;
-      height = 60;
+      width = 64;
+      height = 64;
 
       facing = true;       //0: move left, 1= move right
    }

@@ -39,7 +39,7 @@ public class GameWindow extends JFrame
 		public GameWindow() {
 	 
 			setTitle ("Don't Get Slimmed 0.1.3");
-			setSize (1200, 800);
+			setSize (700, 600);
 	
 			// create user interface objects
 	
@@ -98,7 +98,7 @@ public class GameWindow extends JFrame
 			// create the gamePanel for game entities
 	
 			gamePanel = new GamePanel();
-			gamePanel.setPreferredSize(new Dimension(1000, 600));
+			gamePanel.setPreferredSize(new Dimension(600, 400));
 			gamePanel.createGameEntities();
 	
 	

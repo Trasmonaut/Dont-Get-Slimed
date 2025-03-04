@@ -28,8 +28,8 @@ public class FallingSlime extends Slime {
         dimension = panel.getSize();
         backgroundColour = panel.getBackground ();
 
-        width = 40;
-        height = 40;
+        width = 48;
+        height = 48;
 
         this.player = player;
 
@@ -40,7 +40,7 @@ public class FallingSlime extends Slime {
     @Override
     public void setLocation() {
         x = random.nextInt( 900 - width );
-        y = 460;
+        y = 252;
     }
 
     public void draw () {
@@ -90,14 +90,14 @@ public class FallingSlime extends Slime {
                     ((GamePanel) panel).fallingSlimeDead();
                     player.hurtPlayer(damage);
                     isFalling = false;
-                    y =260;
+                    y =252;
                     erase();
                     System.out.println("Player hit!");
                     setLocation();
-              }else if( y >= 460){
+              }else if( y >= 252){
                  ((GamePanel) panel).fallingSlimeDead();
                   isFalling=false;
-                  y=260;
+                  y=252;
                   setLocation();  
               }
              

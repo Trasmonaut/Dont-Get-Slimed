@@ -179,6 +179,7 @@ public class GamePanel extends JPanel implements Runnable {
       for(Slime s : AllSlimes){
          s.move();
       }
+
       if (leftSwing != null){
          leftSwing.update();
       }

@@ -41,7 +41,7 @@ public class GameWindow extends JFrame
     @SuppressWarnings({"unchecked"})
     public GameWindow() {
      
-        setTitle ("Don't Get Slimmed 1.1.0");
+        setTitle ("Don't Get Slimmed 1.1.1");
         setSize (700, 600);
 
         hearts = ImageManager.loadImage("images/healthcount.png");

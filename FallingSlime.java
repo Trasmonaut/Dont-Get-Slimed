@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.Rectangle2D;
 import java.util.Random;
@@ -50,9 +51,11 @@ public class FallingSlime extends Slime {
     }
 
     public void draw(Graphics g2) {
-        if (!isJumping) {
-            
-            g2.drawImage(slime, x, y, null);
+        if(isJumping){
+            jumpSlimeAnimation.draw((Graphics2D)g2, x, y);
+        }else{
+        g2.drawImage(slime, x, y, null);
+
         }
     }
 

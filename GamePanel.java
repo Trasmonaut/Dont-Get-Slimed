@@ -23,6 +23,8 @@ public class GamePanel extends JPanel implements Runnable {
       private Image foregroundgrass;
       private Image background;
 
+      private ImageFX imageFX1;
+      private ImageFX imageFX2;
 
       private int numFrames;
       private SwordLeftAnimation leftSwing;
@@ -53,6 +55,9 @@ public class GamePanel extends JPanel implements Runnable {
       AllSlimes[3] = new LargeSlime(this, player);
 
       floor = new Floor (this, 300);
+
+      
+      
    }
 
    // public void drawGameEntities() {
@@ -102,9 +107,19 @@ public class GamePanel extends JPanel implements Runnable {
    }
 
    public void hurtPlayer(){
-      soundManager.playClip("playerhurt", false);
+      if(player!=null){
+         imageFX2 = new BrightnessFX(this);
+         imageFX2.update();
 
+         if(player.health < 10){
+            imageFX1 = new GrayScaleFX2(this);
+            imageFX1.update();
+         }
+
+      soundManager.playClip("playerhurt", false);
+      }
    }
+   
    public void slimeShield(){
       soundManager.playRandomClip("slimeblock", 3, false);
    }
@@ -175,8 +190,13 @@ public class GamePanel extends JPanel implements Runnable {
    public void gameRender(){
       
       Graphics2D imageContext = (Graphics2D) image.getGraphics();
-      
       imageContext.drawImage(background, 0, 0, null);
+
+      
+      if (imageFX1 != null) {
+         imageFX1.draw (imageContext, player.facing, player.x);
+      }
+
       imageContext.drawImage(foregroundgrass, 0, 285,null);
       
    
@@ -199,7 +219,13 @@ public class GamePanel extends JPanel implements Runnable {
          if (AllSlimes != null) {
             for (Slime s : AllSlimes)
                s.draw(imageContext);
-                }
+         }
+         
+         if (imageFX2 != null) { 
+            imageFX2.draw (imageContext, player.facing, player.x);
+            imageFX2=null;
+         }
+   
    
                 
          
@@ -210,8 +236,9 @@ public class GamePanel extends JPanel implements Runnable {
 		imageContext.dispose();
 		g2.dispose();
          
-      }
+      
    }
+}
    
    
 

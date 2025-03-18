@@ -1,7 +1,7 @@
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Random;
@@ -17,11 +17,16 @@ public class LargeSlime extends Slime{
     public int height;
     public int damage = -5;
     public Player player;
-    public int health = 2;
+    public int health = 8;
     private Ellipse2D smallSlime;
     public int dx;		// increment to move along x-axis
     public int dy;		// increment to move along y-axis
     private Random random;
+
+    private boolean facing; //fasle = left, true = right
+
+    private Image slimeleft;
+    private Image slimeright;
 
     public LargeSlime(JPanel p, Player player) {
         panel = p;
@@ -35,25 +40,20 @@ public class LargeSlime extends Slime{
 
         random = new Random();
 
-        dx = 2;			// no movement along x-axis
+        dx = 1;			// no movement along x-axis
 
         setLocation();
-    }
-    public void draw () {
-        Graphics g = panel.getGraphics ();
-        Graphics2D g2 = (Graphics2D) g;
 
-        smallSlime = new Ellipse2D.Double(x, y, width, height);
-  
-        g2.setColor(Color.PINK); 
-        g2.fill(smallSlime);		// colour the head
-  
-        g2.setColor(Color.BLACK);	 
-        g2.draw(smallSlime);		// draw outline around head
-  
-        g2.setColor(Color.BLACK);
-  
-        g.dispose();
+        slimeleft = ImageManager.loadImage("Images/LargeSlime/slimeleft.png");
+        slimeright = ImageManager.loadImage("images/LargeSlime/slimeright.png");
+    }
+    public void draw (Graphics g2) {
+        if(!facing){
+            g2.drawImage(slimeleft, x, y, null);
+        }else{
+            g2.drawImage(slimeright, x, y, null);
+        }
+     
      }
   
   
@@ -71,21 +71,21 @@ public class LargeSlime extends Slime{
   
   
     public void move() {
-  
-        erase();
         if (!panel.isVisible ()) return;
 
         if(player.x < x){
             x = x - dx;
+            facing = false;
         }
         else if(player.x > x){
             x = x + dx;
+            facing = true;
         }
 
         boolean collision = collidesWithplayer();
         if (collision && player.shield && collideWithAttack()) {
             collideWithSheild();
-
+            ((GamePanel)panel).slimeShield();
         }else if(collision){  
             ((GamePanel) panel).hurtPlayer();
             player.hurtPlayer(damage);
@@ -96,26 +96,24 @@ public class LargeSlime extends Slime{
                 x = x - 20;
             }	
         }
-
-        draw();
     }
 
     public void collideWithSheild(){
-                erase();
+             
                 if(player.x < x){
                     x = x + 20;
                 }
                 else if(player.x > x){
                     x = x - 20;
                 }
-                draw();
+               
             }
         
     
 
     public void hurtSlime(){
         if(collideWithAttack()){
-            erase();
+       
             if(player.x < x){
                 x = x + 10;
             }
@@ -123,12 +121,12 @@ public class LargeSlime extends Slime{
                 x = x - 10;
             
             }
-            draw();
+           
 
             health = health + player.damage;
             if(health <= 0){
                 ((GamePanel) panel).killedSlime();
-                erase();
+               
                 setLocation();
                 health =2;
                 player.points= player.points + points;
@@ -141,8 +139,8 @@ public class LargeSlime extends Slime{
 
     @Override
     public void setLocation() {
-        x = random.nextInt( 900 - width );
-        y = 236;
+        x = random.nextInt( 600 - width );
+        y = 238;
     }
 
     public Rectangle2D.Double getBoundingRectangle() {

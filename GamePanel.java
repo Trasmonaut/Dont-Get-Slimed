@@ -23,6 +23,12 @@ public class GamePanel extends JPanel implements Runnable {
       private Image foregroundgrass;
       private Image background;
 
+
+      private int numFrames;
+      private SwordLeftAnimation leftSwing;
+      private SwordRightAnimation rightSwing;
+   
+
       public GamePanel () {
       player = null; 
       floor = null;
@@ -35,24 +41,26 @@ public class GamePanel extends JPanel implements Runnable {
 
 
    public void createGameEntities() {
-      player = new Player (this); 
+      player = new Player (this , background); 
+      GameWindow.updatePointChecker(0);
       GameWindow.updatePlayerHealht(player.health);
 
       AllSlimes = new Slime[5];
       AllSlimes[0] = new SmallSlime(this, player);
       AllSlimes[1] = new SmallSlime(this, player);
       AllSlimes[2] = new SmallSlime(this,player);
-      AllSlimes[3] = new FallingSlime(this,player);
-      AllSlimes[4] = new LargeSlime(this, player);
+      AllSlimes[4] = new FallingSlime(this,player);
+      AllSlimes[3] = new LargeSlime(this, player);
 
       floor = new Floor (this, 300);
    }
 
-   public void drawGameEntities() {
-       if (player != null) {
-       	  player.draw();
-       }
-   }
+   // public void drawGameEntities() {
+   //     if (player != null) {
+   //     	  player.draw();
+   //     }
+   // }
+
 
    public void updateGameEntities(int direction) {
 
@@ -60,17 +68,31 @@ public class GamePanel extends JPanel implements Runnable {
          return;
 
       if (isRunning){
-         player.erase();
          player.move(direction);
-         player.facingSide();
+         // player.drawPlayerBox();
+         // player.facingSide();
       }
    }
+   
+   
+   public void swung(){ 
+      if(player!=null){
+         Graphics2D imageContext = (Graphics2D) image.getGraphics();
+         imageContext.drawImage(background, 0, 0, null);	
+      
+         if(player.facing){
+            leftSwing = new SwordLeftAnimation(player.x);
+            leftSwing.start(player.x);
+         }else{
+            rightSwing = new SwordRightAnimation(player.x);
+            rightSwing.start(player.x);
+         }
 
-   public void swung(){
-      soundManager.playRandomClip("slash", 4 , false);
-      for (Slime s : AllSlimes){
-         s.hurtSlime();
-         
+         soundManager.playRandomClip("slash", 3 , false);
+         for (Slime s : AllSlimes){
+            s.hurtSlime();
+            
+         }
       }
    }
 
@@ -112,14 +134,16 @@ public class GamePanel extends JPanel implements Runnable {
                soundManager.playClip("lowHealth", true);
 
       }
+
             if(player.health <= 0){
                
                isRunning=false;
-               System.out.println("Player Died. Game over. Final Points :" + player.points);
+               System.out.println("Player Died. Game over. Final Points: " + player.points);
 
                soundManager.stopClip("lowHealth");
                soundManager.stopClip("background");
 
+               soundManager.setVolume("playerdeath", 0.75f);
                soundManager.playClip("playerdeath", false);
             }
 
@@ -139,6 +163,13 @@ public class GamePanel extends JPanel implements Runnable {
       for(Slime s : AllSlimes){
          s.move();
       }
+      if (leftSwing != null){
+         leftSwing.update();
+      }
+      if (rightSwing != null){
+       
+         rightSwing.update();
+      }
    }
 
    public void gameRender(){
@@ -147,16 +178,42 @@ public class GamePanel extends JPanel implements Runnable {
       
       imageContext.drawImage(background, 0, 0, null);
       imageContext.drawImage(foregroundgrass, 0, 285,null);
-      if (floor != null){
-         floor.draw(imageContext);
-      }
+      
+   
+      if (player != null){
 
+         if(!player.shield){
+         player.draw(imageContext);
+         } 
+         if(player.shield)
+            player.drawShieldedPlayer(imageContext);
+         if (leftSwing!= null )
+            leftSwing.draw(imageContext, player.x);
+         if (rightSwing!= null )
+            rightSwing.draw(imageContext, player.x);
+         
+         if (floor != null){
+            floor.draw(imageContext);
+         }
+
+         if (AllSlimes != null) {
+            for (Slime s : AllSlimes)
+               s.draw(imageContext);
+                }
+   
+                
+         
+      
       Graphics2D g2 = (Graphics2D) getGraphics();	// get the graphics context for the panel
 		g2.drawImage(image, 0, 0, 600, 400, null);
 
 		imageContext.dispose();
 		g2.dispose();
+         
+      }
    }
+   
+   
 
    public void startGame(){
       if (isStarted){

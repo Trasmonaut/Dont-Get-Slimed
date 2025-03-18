@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 import javax.swing.JPanel;
 
@@ -19,7 +20,7 @@ public abstract class Slime {
 
    public abstract void setLocation();
    public abstract void move();
-   public abstract void draw();
+   public abstract void draw(Graphics g2);
    public abstract void erase();
    public abstract void hurtSlime();
    public abstract Rectangle2D.Double getBoundingRectangle();

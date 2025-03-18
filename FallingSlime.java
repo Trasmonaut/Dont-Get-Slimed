@@ -100,7 +100,7 @@ public class FallingSlime extends Slime {
     }
 
     public void hurtSlime() {
-        if (collideWithAttack()) {
+        if (collideWithAttack() && isFalling) {
             health--;
             if (health <= 0) {
                 ((GamePanel) panel).killedSlime();

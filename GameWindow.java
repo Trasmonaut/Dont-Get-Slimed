@@ -41,7 +41,7 @@ public class GameWindow extends JFrame
     @SuppressWarnings({"unchecked"})
     public GameWindow() {
      
-        setTitle ("Don't Get Slimmed 1.1.1");
+        setTitle ("Retro Impact 1.1.2");
         setSize (700, 600);
 
         hearts = ImageManager.loadImage("images/healthcount.png");
@@ -132,8 +132,8 @@ public class GameWindow extends JFrame
         // add buttons to buttonPanel
     
         buttonPanel.add(startB);
-        buttonPanel.add(pauseB);
-        buttonPanel.add(focusB);
+        // buttonPanel.add(pauseB);
+        // buttonPanel.add(focusB);
         buttonPanel.add(exitB);
     
         // add sub-panels with GUI objects to mainPanel and set its colour

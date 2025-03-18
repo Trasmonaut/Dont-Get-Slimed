@@ -47,13 +47,14 @@ public class GamePanel extends JPanel implements Runnable {
       GameWindow.updatePointChecker(0);
       GameWindow.updatePlayerHealht(player.health);
 
-      AllSlimes = new Slime[5];
+      AllSlimes = new Slime[6];
       AllSlimes[0] = new SmallSlime(this, player);
       AllSlimes[1] = new SmallSlime(this, player);
       AllSlimes[2] = new SmallSlime(this,player);
-      AllSlimes[4] = new FallingSlime(this,player);
       AllSlimes[3] = new LargeSlime(this, player);
-
+      AllSlimes[4] = new FallingSlime(this,player);
+      AllSlimes[5] = new LargeSlime(this, player);
+      
       floor = new Floor (this, 300);
 
       

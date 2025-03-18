@@ -13,7 +13,7 @@ public class LargeSlime extends Slime{
     public int x;
     public int y;
     public int width;
-    private int points = 1;
+    private int points = 3;
     public int height;
     public int damage = -5;
     public Player player;

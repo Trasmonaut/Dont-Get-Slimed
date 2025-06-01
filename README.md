@@ -12,7 +12,7 @@ Killing a Slime causes a new one version of that slime to spawn, with a maximum 
 the ground, but due to being fat they can barely move. Falling Slimes jump from the ground, off the screen, before falling down fast towards the ground. Falling slimes 
 cannot be blocked, only hit before they collide with the ground…or you.
 
-## Sources - 
+## Sources
 Character Sprites, Animations , Foreground Elements, Slimes, Heart Counter and Point counter was drawn by me using Krita. Main character was inspired by Lumine from Genshin Impact. 
 
 Background image was originally drawn by me, but changed to a background found 

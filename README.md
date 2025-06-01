@@ -20,5 +20,3 @@ on an Itch.io Pixal art set. https://theflavare.itch.io/mondstadt-theme-backgrou
 
 Sounds were sourced from https://pixabay.com/sound-effects/ 
 
-Youtube Link 
-https://youtu.be/e3-NJ-6eyGk
